@@ -1,4 +1,4 @@
-const { createElement, numberToEnglish } = require('./util');
+const { validateEmpty, createElement, numberToEnglish } = require('./util');
 
 const initApp = () => {
   // Initializes the app, registers the button click listener
@@ -9,7 +9,12 @@ const initApp = () => {
 const convertNumber = () => {
   // Fetching the user input
   const newNumberInput = document.querySelector('input#number');
-  const newNumberInputStr = newNumberInput.value.toString() + ' ==> ';
+  const newNumberInputStr = newNumberInput.value.toString() ;
+
+  //validate if empty
+  if (!validateEmpty(newNumberInputStr)) {
+    return;
+  }
   
   const numbersList = document.querySelector('.numbers-list');
   
@@ -19,7 +24,7 @@ const convertNumber = () => {
   );
 
   // creates a new HTML element based on it
-  const element = createElement('li',newNumberInputStr, outputText, 'number-item');
+  const element = createElement('li',newNumberInputStr + ' ==> ', outputText, 'number-item');
 
   // inserts the element to the DOM
   numbersList.insertBefore(element, numbersList.childNodes[0]);

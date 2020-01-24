@@ -1,3 +1,10 @@
+exports.validateEmpty = (inp) => {
+  if (inp.trim().length === 0) {
+    return false;
+  }
+  return true;
+}
+
 exports.createElement = (type, original, text, className) => {
   // Creates a new HTML element and returns it
   const newElement = document.createElement(type);
