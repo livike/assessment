@@ -54,6 +54,8 @@ const numberToEnglish= (n)=> {
   for (i = 0; i < chunksLen; i++) {
 
       chunk = parseInt(chunks[i]);
+      let firstOfMultiple = chunksLen > 1 && i === 0;
+
 
       if (chunk) {
           /* Split chunk into array of individual integers */
@@ -76,6 +78,13 @@ const numberToEnglish= (n)=> {
               words.push(word);
           }
 
+           /* Add 'and' string after units or tens integer if: */
+          if (ints[0] || ints[1]) {
+            /* Chunk has a hundreds integer or chunk is the first of multiple chunks */
+            if (ints[2] !== undefined && firstOfMultiple) {
+                words.push('and');
+            }
+          }
           /* Add hundreds word if array item exists */
           if ((word = units[ints[2]])) {
               words.push(word + ' hundred');
