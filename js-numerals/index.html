@@ -13,7 +13,7 @@
     <section class="control-panel">
         <div class="input-container">
             <label for="name">Arabic number</label>
-            <input type="text" id="number">
+            <input type="text" id="number" onkeypress="return isNumberKey(event)">
         </div>
         <button id="btnConvertNumber" class="button">Convert number</button>
     </section>
