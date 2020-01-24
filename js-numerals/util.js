@@ -1,19 +1,19 @@
-exports.validateEmpty = (inp) => {
+const validateEmpty = (inp) => {
   if (inp.trim().length === 0) {
     return false;
   }
   return true;
 }
 
-exports.createElement = (type, original, text, className) => {
+exports.createElement = (type, text, className) => {
   // Creates a new HTML element and returns it
   const newElement = document.createElement(type);
   newElement.classList.add(className);
-  newElement.textContent = original + text;
+  newElement.textContent = text;
   return newElement;
 };
 
-exports.numberToEnglish= (n)=> {
+const numberToEnglish= (n)=> {
 
   const string = n.toString();
 
@@ -92,3 +92,19 @@ exports.numberToEnglish= (n)=> {
   return words.reverse().join(' ');
 
 }
+
+exports.checkAndGenerate = (n)=> {
+  const newNumberInputStr = n.toString() ;
+
+  //validate if empty
+  if (!validateEmpty(newNumberInputStr)) {
+    return false;
+  }
+   // converts the number to english
+   const english = numberToEnglish(n);
+   const outputText = newNumberInputStr + ' ==> ' + english;
+   return outputText;
+}
+
+exports.numberToEnglish = numberToEnglish;
+exports.validateEmpty = validateEmpty;

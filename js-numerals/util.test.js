@@ -1,4 +1,4 @@
-const { validateEmpty, numberToEnglish } = require('./util');
+const { validateEmpty, numberToEnglish, checkAndGenerate } = require('./util');
 
 test('return false if empty', ()=>{
   expect(validateEmpty('')).toBe(false);
@@ -18,4 +18,9 @@ test('should convert numbert to english with the and word', () => {
   expect(numberToEnglish(1999)).toBe('one thousand nine hundred and ninety nine');
   expect(numberToEnglish(23899)).toBe('twenty three thousand eight hundred and ninety nine');
 });
+
+//integration test
+test('should generate a valid number conversion', () => {
+  expect (checkAndGenerate(2012)).toBe('2012 ==> two thousand and twelve');
+})
 
