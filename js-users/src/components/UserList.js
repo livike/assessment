@@ -6,7 +6,9 @@ import {
   TableCell,
   TableHeader,
   TableRow,
-  Text
+  Text,
+  Button,
+  Box
 } from "grommet";
 
 import { formatDate } from "../util/util";
@@ -24,11 +26,23 @@ const COLUMNS = [
     property: "created_at",
     label: "Created At",
     format: user => formatDate(user.created_at)
+  },
+  {
+    property: "status",
+    label: "Status",
+    format: user => {
+      return (
+        <Button
+          type="button"
+          onClick={() => {
+            alert();
+          }}
+        >
+          {user.status}
+        </Button>
+      );
+    }
   }
-  // {
-  //   property: "status",
-  //   label: "Status"
-  // }
 ];
 
 const UserList = props => {
@@ -57,7 +71,9 @@ const UserList = props => {
           <TableRow key={user.id}>
             {COLUMNS.map(c => (
               <TableCell key={c.property} size="medium">
-                <Text>{c.format ? c.format(user) : user[c.property]}</Text>
+                <Text status={user.status}>
+                  {c.format ? c.format(user) : user[c.property]}
+                </Text>
               </TableCell>
             ))}
           </TableRow>
