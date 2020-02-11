@@ -1,25 +1,29 @@
 import React from "react";
 import { render } from "react-dom";
 import { Grommet } from "grommet";
-import Navigation from "./Navigation";
-import Users from "./Users";
-
-const theme = {
-  global: {
-    font: {
-      family: "Roboto",
-      size: "14px",
-      height: "20px"
-    }
-  }
-};
+import Navigation from "./components/Navigation";
+import Users from "./components/Users";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 
 const App = () => {
   return (
     <div>
-      <Grommet theme={theme}>
-        <Navigation />
-        <Users />
+      <Grommet>
+        <Router>
+          <Navigation />
+          <div className="app-container">
+            <Switch>
+              <Route path={"/"}>
+                <Users />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
       </Grommet>
     </div>
   );

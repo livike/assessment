@@ -9,7 +9,7 @@ import {
   Text
 } from "grommet";
 
-import { formatDate } from "./util";
+import { formatDate } from "../util/util";
 
 const COLUMNS = [
   {
@@ -32,7 +32,6 @@ const COLUMNS = [
 ];
 
 const UserList = props => {
-  console.log("users:", props.users);
   if (props.users === null) {
     return null;
   }

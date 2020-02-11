@@ -1,13 +1,18 @@
 import React from "react";
 
-import { Anchor, Box, Header, Nav, Menu, ResponsiveContext } from "grommet";
+import {
+  Anchor,
+  Box,
+  Header,
+  Nav,
+  Menu,
+  ResponsiveContext,
+  Heading
+} from "grommet";
 import { grommet } from "grommet/themes";
 
 const Navigation = () => (
-  <Header background="accent-1" pad="medium">
-    <Box direction="row" align="center" gap="small">
-      Users
-    </Box>
+  <Header background="brand" pad="medium">
     <ResponsiveContext.Consumer>
       {responsive =>
         responsive === "small" ? (
@@ -26,6 +31,9 @@ const Navigation = () => (
         )
       }
     </ResponsiveContext.Consumer>
+    <Box direction="row" align="center" gap="small">
+      <Heading level={2}>Users</Heading>
+    </Box>
   </Header>
 );
 
