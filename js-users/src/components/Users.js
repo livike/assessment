@@ -3,7 +3,7 @@ import * as API from "../util/server";
 import UserList from "./UserList";
 import Pagination from "./Pagination";
 import { Box } from "grommet";
-import { inverseStatus, updateUsers, updateCurrentUsers } from "../util/util";
+import { inverseStatus, updateUsers, sortData } from "../util/util";
 
 // fetch the data and compose the users view
 const Users = () => {
@@ -17,7 +17,7 @@ const Users = () => {
     const fetchUsers = async () => {
       try {
         const { data } = await API.fetchUsers();
-        setUsers(data);
+        setUsers(sortData(data));
         setLoading(false);
       } catch (error) {
         setError(error);
