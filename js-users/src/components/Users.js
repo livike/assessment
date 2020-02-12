@@ -8,7 +8,6 @@ import { inverseStatus, updateUsers, updateCurrentUsers } from "../util/util";
 // fetch the data and compose the users view
 const Users = () => {
   const [users, setUsers] = useState([]);
-  // const [currentUsers, setCurrentUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,12 +53,7 @@ const Users = () => {
     const newStatus = inverseStatus(userStatus);
     try {
       await API.updateStatus(userId, newStatus);
-      // console.log("users before setUsers", users);
-      setUsers(
-        updateUsers(users, userId, currentPage, newStatus, currentUsers)
-      );
-      currentUsers = defineCurrentUsers();
-      // console.log("users after setUsers", users);
+      setUsers([...users, updateUsers(userId, newStatus, currentUsers)]);
     } catch (e) {
       setError(error);
     }
