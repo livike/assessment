@@ -25,8 +25,8 @@ const Navigation = () => (
           />
         ) : (
           <Nav direction="row">
-            <Anchor href="#" label="All users" />
-            <Anchor href="#" label="Add user" />
+            <Anchor href="/" label="All users" />
+            <Anchor href="/new" label="Add user" />
           </Nav>
         )
       }

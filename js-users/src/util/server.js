@@ -8,3 +8,5 @@ export const updateStatus = (userId, status) => {
   // console.log(userId, status);
   return axios.put(`${BASE_URL}users/${userId}.json`, { status });
 };
+
+export const addUser = user => axios.post(`${BASE_URL}users.json`, user);
