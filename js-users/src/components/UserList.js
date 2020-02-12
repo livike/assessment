@@ -13,48 +13,50 @@ import {
 
 import { formatDate } from "../util/util";
 
-const COLUMNS = [
-  {
-    property: "first_name",
-    label: "First Name"
-  },
-  {
-    property: "last_name",
-    label: "Last Name"
-  },
-  {
-    property: "created_at",
-    label: "Created At",
-    format: user => formatDate(user.created_at)
-  },
-  {
-    property: "status",
-    label: "Status",
-    format: user => {
-      return (
-        <Button
-          type="button"
-          onClick={() => {
-            alert();
-          }}
-        >
-          {user.status}
-        </Button>
-      );
-    }
-  }
-];
-
-const UserList = props => {
-  if (props.users === null) {
+const UserList = ({ users, toggleStatus }) => {
+  // console.log("UserList render");
+  // console.log(users);
+  if (users === null) {
     return null;
   }
+  const columns = [
+    {
+      property: "first_name",
+      label: "First Name"
+    },
+    {
+      property: "last_name",
+      label: "Last Name"
+    },
+    {
+      property: "created_at",
+      label: "Created At",
+      format: user => formatDate(user.created_at)
+    },
+    {
+      property: "status",
+      label: "Status",
+      format: user => {
+        return (
+          <Button
+            type="button"
+            onClick={() => {
+              // console.log("clicked button user status ", user.status);
+              toggleStatus(user.id, user.status);
+            }}
+          >
+            {user.status === "active" ? "lock" : "activate"}
+          </Button>
+        );
+      }
+    }
+  ];
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          {COLUMNS.map(c => (
+          {columns.map(c => (
             <TableCell
               key={c.property}
               scope="col"
@@ -67,9 +69,9 @@ const UserList = props => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {props.users.map(user => (
+        {users.map(user => (
           <TableRow key={user.id}>
-            {COLUMNS.map(c => (
+            {columns.map(c => (
               <TableCell key={c.property} size="medium">
                 <Text status={user.status}>
                   {c.format ? c.format(user) : user[c.property]}

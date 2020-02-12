@@ -3,14 +3,12 @@ import * as API from "../util/server";
 import UserList from "./UserList";
 import Pagination from "./Pagination";
 import { Box } from "grommet";
+import { inverseStatus, updateUsers, updateCurrentUsers } from "../util/util";
 
 // fetch the data and compose the users view
-const handlePageChange = page => {
-  console.log("page ", page);
-};
-
 const Users = () => {
   const [users, setUsers] = useState([]);
+  // const [currentUsers, setCurrentUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,16 +29,18 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-  //Get current users
-  const indexOfLastPage = currentPage * userPerPage;
-  const indexOfFirstPage = indexOfLastPage - userPerPage;
-  const currentUsers = users.slice(indexOfFirstPage, indexOfLastPage);
+  function defineCurrentUsers() {
+    // Get current users
+    const indexOfLastPage = currentPage * userPerPage;
+    const indexOfFirstPage = indexOfLastPage - userPerPage;
+    const slicedUsers = users.slice(indexOfFirstPage, indexOfLastPage);
+    return slicedUsers;
+  }
+  const currentUsers = defineCurrentUsers();
+
+  //for navigation
   const usersCount = users.length;
   const pagesRange = Math.ceil(usersCount / userPerPage);
-
-  // console.log("usersCount", usersCount);
-  // console.log("userPerPage", userPerPage);
-
   const paginate = pageNumber => setCurrentPage(pageNumber);
   const navigateStep = direction => {
     if (direction === "prev" && currentPage > 1) {
@@ -49,10 +49,30 @@ const Users = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+  const toggleStatus = async (userId, userStatus) => {
+    const newStatus = inverseStatus(userStatus);
+    try {
+      await API.updateStatus(userId, newStatus);
+      // console.log("users before setUsers", users);
+      setUsers(
+        updateUsers(users, userId, currentPage, newStatus, currentUsers)
+      );
+      currentUsers = defineCurrentUsers();
+      // console.log("users after setUsers", users);
+    } catch (e) {
+      setError(error);
+    }
+  };
+
   return (
     <Box>
       <Box alignSelf="center" margin="medium">
-        <UserList users={currentUsers} />
+        <UserList
+          users={currentUsers}
+          toggleStatus={toggleStatus}
+          allUsers={users}
+        />
         <Pagination
           pagesRange={pagesRange}
           currentPage={currentPage}

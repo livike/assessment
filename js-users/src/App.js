@@ -39,6 +39,4 @@ const App = () => {
   );
 };
 
-console.log(Users);
-
 render(<App />, document.getElementById("root"));
