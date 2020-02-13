@@ -16,7 +16,9 @@ const AddUser = () => {
     }
   };
 
-  return <UserForm save={save} title={"Add user"} />;
+  const cancel = () => history.push("/");
+
+  return <UserForm save={save} cancel={cancel} title={"Add user"} />;
 };
 
 export default AddUser;

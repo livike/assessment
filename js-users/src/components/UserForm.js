@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, Box, Button } from "grommet";
 
-const UserForm = ({ user, save, title }) => {
+const UserForm = ({ user, cancel, save, title }) => {
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
 
@@ -21,6 +21,8 @@ const UserForm = ({ user, save, title }) => {
     });
   };
 
+  const onCancel = () => cancel();
+
   return (
     <Box width="medium" align="center" gap="small" pad="small">
       <form onSubmit={onSave}>
@@ -39,8 +41,9 @@ const UserForm = ({ user, save, title }) => {
           value={lastName}
           size="medium"
         />
-        <Box>
+        <Box direction="row" alignSelf="center" gap="medium" pad="small">
           <Button type={"submit"}>Save</Button>
+          <Button onClick={onCancel}>Cancel</Button>
         </Box>
       </form>
     </Box>

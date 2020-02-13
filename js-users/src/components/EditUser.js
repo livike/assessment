@@ -33,7 +33,11 @@ const EditUser = () => {
     }
   };
 
-  return <UserForm save={save} user={user} title={"Edit user"} />;
+  const cancel = () => history.push("/");
+
+  return (
+    <UserForm save={save} cancel={cancel} user={user} title={"Edit user"} />
+  );
 };
 
 export default EditUser;
