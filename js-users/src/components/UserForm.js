@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, Box, Button } from "grommet";
 
-const UserForm = ({ user, cancel, save, title }) => {
+const UserForm = ({ user, cancel, save, error, title }) => {
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
 
@@ -28,6 +28,11 @@ const UserForm = ({ user, cancel, save, title }) => {
       <form onSubmit={onSave}>
         <h2 className={"heading-secondary"}>{title}</h2>
         <Text>First Name</Text>
+        {error && error.first_name && (
+          <Text color="status-critical" margin="small">
+            {error.first_name}
+          </Text>
+        )}
         <TextInput
           name={"first_name"}
           onChange={e => setFirstName(e.target.value)}
@@ -35,6 +40,11 @@ const UserForm = ({ user, cancel, save, title }) => {
           size="medium"
         />
         <Text>Last Name</Text>
+        {error && error.last_name && (
+          <Text color="status-critical" margin="small">
+            {error.last_name}
+          </Text>
+        )}
         <TextInput
           name={"last_name"}
           onChange={e => setLastName(e.target.value)}

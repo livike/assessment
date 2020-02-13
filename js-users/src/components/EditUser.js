@@ -6,6 +6,7 @@ import { useParams, useHistory } from "react-router-dom";
 const EditUser = () => {
   console.log("EditUser");
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
   const { userId } = useParams();
   const params = useParams();
   const history = useHistory();
@@ -16,7 +17,7 @@ const EditUser = () => {
         const { data } = await API.fetchUser(userId);
         setUser(data);
       } catch (error) {
-        console.log("EditUser error", error);
+        console.log(error);
         history.push("/");
       }
     };
@@ -28,15 +29,21 @@ const EditUser = () => {
       await API.updateUser({ ...user, id: userId });
       setUser(user);
       history.push("/");
-    } catch (e) {
-      console.log("error", e);
+    } catch (error) {
+      setError(error.response.data);
     }
   };
 
   const cancel = () => history.push("/");
 
   return (
-    <UserForm save={save} cancel={cancel} user={user} title={"Edit user"} />
+    <UserForm
+      save={save}
+      cancel={cancel}
+      error={error}
+      user={user}
+      title={"Edit user"}
+    />
   );
 };
 
