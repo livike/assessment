@@ -4,6 +4,8 @@ import UserList from "./UserList";
 import Pagination from "./Pagination";
 import { Box } from "grommet";
 import { inverseStatus, updateUsers, sortData } from "../util/util";
+import PreloaderIcon from "react-preloader-icon";
+import Oval from "react-preloader-icon/loaders/Oval";
 
 // fetch the data and compose the users view
 const Users = () => {
@@ -58,6 +60,22 @@ const Users = () => {
       setError(error);
     }
   };
+
+  if (loading) {
+    return (
+      <Box>
+        <Box alignSelf="center" margin="large">
+          <PreloaderIcon
+            loader={Oval}
+            size={120}
+            strokeWidth={10}
+            strokeColor="#006064"
+            duration={1000}
+          />
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box>
