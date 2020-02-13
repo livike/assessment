@@ -5,6 +5,7 @@ import { grommet } from "grommet/themes";
 import Navigation from "./components/Navigation";
 import Users from "./components/Users";
 import AddUser from "./components/AddUser";
+import EditUser from "./components/EditUser";
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,6 +33,9 @@ const App = () => {
           <Switch>
             <Route path="/new">
               <AddUser />
+            </Route>
+            <Route path={`/edit/:userId(\\d+)`}>
+              <EditUser />
             </Route>
             <Route path={"/"}>
               <Users />

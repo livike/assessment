@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useHistory, useParams } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -19,19 +19,40 @@ const UserList = ({ users, toggleStatus }) => {
   if (users === null) {
     return null;
   }
+  let history = useHistory();
+  const goToEdit = id => {
+    history.push(`/edit/${id}`);
+  };
+
   const columns = [
     {
       property: "first_name",
-      label: "First Name"
+      label: "First Name",
+      format: user => {
+        return (
+          <Button onClick={() => goToEdit(user.id)}>{user.first_name}</Button>
+        );
+      }
     },
     {
       property: "last_name",
-      label: "Last Name"
+      label: "Last Name",
+      format: user => {
+        return (
+          <Button onClick={() => goToEdit(user.id)}>{user.last_name}</Button>
+        );
+      }
     },
     {
       property: "created_at",
       label: "Created At",
-      format: user => formatDate(user.created_at)
+      format: user => {
+        return (
+          <Button onClick={() => goToEdit(user.id)}>
+            {formatDate(user.created_at)}
+          </Button>
+        );
+      }
     },
     {
       property: "status",

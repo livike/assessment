@@ -10,3 +10,10 @@ export const updateStatus = (userId, status) => {
 };
 
 export const addUser = user => axios.post(`${BASE_URL}users.json`, user);
+
+export const fetchUser = userId => axios.get(`${BASE_URL}users/${userId}.json`);
+
+export const updateUser = user => {
+  const { id, ...other } = user;
+  return axios.put(`${BASE_URL}users/${id}.json`, { ...other });
+};
